@@ -8,12 +8,12 @@ from place.models import Place
 from place.utils import calcular_distancia
 
 
-class PlaceView(TemplateView):
-    template_name = 'location.html'
+class HomeView(TemplateView):
+    template_name = 'home.html'
 
     def get_context_data(self,*args, **kwargs):
-        context = super(PlaceView, self).get_context_data(*args,**kwargs)
-        context['place'] = Place.objects.first()
+        context = super(HomeView, self).get_context_data(*args,**kwargs)
+        context['items'] = Place.objects.all()
         return context
 
 def register_place(request):
