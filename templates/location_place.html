@@ -24,12 +24,15 @@
 </head>
 <body>
     <div class="text-center">
-        <h1>Lugar={{ place.name }}, comprobar si estoy cerca</h1>
-        <div id="messages"></div>
+        <h1>{{ place.name }}</h1>
+        <p>comprobar si estoy cerca</p>
+        
         <button onclick="getLocation()" class="btn btn-lg btn-primary">comprobar</button>
     </div>
     <hr>
+    <div id="messages-dist" class="text-center"></div>
     <div id="map"></div>
+    <div id="messages-geo" class="text-center"></div>
     <script>
         function getLocation() {
             if ("geolocation" in navigator) {
@@ -45,7 +48,7 @@
                     })
                     .then(function(html) {
                         // Manipular el HTML de la respuesta como desees
-                        var myDiv = document.getElementById("messages");
+                        var myDiv = document.getElementById("messages-geo");
                         myDiv.innerHTML = html
                         console.log(html);
                         // Aquí puedes insertar el HTML en tu página o hacer otras acciones

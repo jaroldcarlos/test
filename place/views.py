@@ -39,7 +39,7 @@ def endpoint(request):
         origin = Place.objects.first()
 
     distance = calcular_distancia(origin.latitude, origin.longitude, Decimal(latitude), Decimal(longitude))
-    html = f'<p>Tu posición: Latitud: {latitude} - Longitud: {longitude}</p><p>Origen {origin.name}: Latitud: {origin.latitude} - Longitud: {origin.longitude}</p><p>Distancia de {distance} metros<p/>'
+    html = f'<p>Distancia de {distance} metros<p/><br><br><p>Tu posición: Latitud: {latitude} - Longitud: {longitude}</p><p>Origen {origin.name}: Latitud: {origin.latitude} - Longitud: {origin.longitude}</p>'
     return HttpResponse(html)
 
 
