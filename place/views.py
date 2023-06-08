@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from django.views.generic import TemplateView
 from place.models import Place
-from place.utils import haversine
+from place.utils import calcular_distancia
 
 
 class PlaceView(TemplateView):
@@ -22,6 +22,7 @@ def endpoint(request):
     print(request.GET)
     print(latitude, longitude)
     origin = Place.objects.first()
-    distance = haversine(Decimal(latitude), Decimal(longitude), origin.longitude, origin.latitude)
-    html = f'<h3>Coordenadas recibidas:</h3><p>Latitud: {latitude}</p><p>Longitud: {longitude}</p><p>Distancia desde {origin.name} es de {distance} metros<p/>'
+    print(origin.latitude, origin.longitude, Decimal(latitude), Decimal(longitude))
+    distance = calcular_distancia(origin.latitude, origin.longitude, Decimal(latitude), Decimal(longitude))
+    html = f'<p>Tu posición: Latitud: {latitude} - Longitud: {longitude}</p><p>Origen {origin.name}: Latitud: {origin.latitude} - Longitud: {origin.longitude}</p><p>Distancia de {distance} metros<p/>'
     return HttpResponse(html)
