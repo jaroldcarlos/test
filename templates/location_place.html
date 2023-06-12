@@ -14,8 +14,7 @@
         navigator.geolocation.getCurrentPosition(function(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
-        console.log("Latitude:", latitude);
-        console.log("Longitude:", longitude);
+        alert(latitude, longitude)
         // Realizar la solicitud fetch a la URL y manejar la respuesta
         fetch('/endpoint?latitude='+latitude+'&longitude='+longitude+'&id_place='+{{place.id}})
         .then(function(response) {
