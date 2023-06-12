@@ -20,7 +20,7 @@
         </style>
         <script>
             function enviarCoordenadas() {
-                console.alert('le has dado al botón, Felicidades')
+                alert('le has dado al botón, Felicidades')
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function(position) {
                         var latitud = position.coords.latitude;
