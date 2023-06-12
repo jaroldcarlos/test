@@ -20,6 +20,7 @@
         </style>
         <script>
         function getLocation() {
+        alert('Le has dado al botón, Felicidades');
         if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
         var latitude = position.coords.latitude;
@@ -35,11 +36,10 @@
         // Manipular el HTML de la respuesta como desees
         var myDiv = document.getElementById("messages-geo");
         myDiv.innerHTML = html
-        console.log(html);
         // Aquí puedes insertar el HTML en tu página o hacer otras acciones
         })
         .catch(function(error) {
-        console.log("Error:", error);
+        alert.("Error:", error);
         });
         // Crear el mapa y mostrar las coordenadas en el mismo
         var map = L.map('map').setView([{{place.latitude}}, {{ place.longitude}}], 18);
