@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Default | {% block title %}{% endblock title %}Donde estoy?</title>
+        <meta name="description" content="como acabe aqui?">
+        <meta name="author" content="ecDesignStudio">
+        <meta property="og:title" content="Donde estoy">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://dj.ecdesign.es/">
+        <meta property="og:description" content="como acabe aqui?">
+        <meta property="og:image" content="image.png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+        {% block css %}            
+        {% endblock css %}
+        {% block js_head %}
+        {% endblock js_head %}
+    </head>
+    <body>
+        <div class="jumbotron text-center mb-4 mt-4">
+            {% block title_page %}
+                <h1>Donde estoy?</h1>
+                <p>Test Geoposición v1.01</p>
+            {% endblock title_page %}
+        </div>
+        <div class="container">
+            {% block content %}
+            {% endblock content %}
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>    
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    </body>
+</html>
