@@ -8,47 +8,60 @@
         
 {% block js_head %}
 <script>
-function getLocation() {
-    alert('le has dado al botón');
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            alert(latitude + ' ' + longitude);
-            // Realizar la solicitud fetch a la URL y manejar la respuesta
-            fetch('/endpoint?latitude=' + latitude + '&longitude=' + longitude + '&id_place=' + {{ place.id }})
-                .then(function(response) {
-                    return response.text();
-                })
-                .then(function(html) {
-                    // Manipular el HTML de la respuesta como desees
-                    var myDiv = document.getElementById("messages-geo");
-                    myDiv.innerHTML = html;
-                    console.log(html);
-                    // Aquí puedes insertar el HTML en tu página o hacer otras acciones
-                })
-                .catch(function(error) {
-                    alert("Error:", error);
-                    console.log("Error:", error);
-                });
-            // Crear el mapa y mostrar las coordenadas en el mismo
-            var map = L.map('map').setView([{{ place.latitude }}, {{ place.longitude }}], 18);
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-            }).addTo(map);
-            var bounds = new L.LatLngBounds();
-            var person = L.marker([latitude, longitude]).addTo(map);
-            bounds.extend(person.getLatLng());
-            var origin = L.marker([{{ place.latitude }}, {{ place.longitude }}]).addTo(map);
-            bounds.extend(origin.getLatLng());
-            map.fitBounds(bounds);
-        });
-    } else {
-        alert("La geolocalización no está disponible.");
-        console.log("La geolocalización no está disponible.");
+
+
+window.addEventListener("load", function(event) {
+    el = document.getElementById("geobutton");
+    el.addEventListener("click", function() {
+        if (navigator.geolocation) {
+             navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
+        }
+    });
+});
+    function foundLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        
+        // Realizar la solicitud fetch a la URL y manejar la respuesta
+        fetch(
+            `/endpoint?latitude=${latitude}&longitude=${longitude}&id_place={{place.id}}`
+        ).then(function(response) {
+            return response.text();
+        }).then(function(html) {
+            // Manipular el HTML de la respuesta como desees
+            var myDiv = document.getElementById("messages-geo");
+            myDiv.innerHTML = html;
+            console.log(html);
+            // Aquí puedes insertar el HTML en tu página o hacer otras acciones
+        }).catch(function(error) {
+            alert("Error:", error);
+            console.log("Error:", error);
+        })
+        ;
+        // Crear el mapa y mostrar las coordenadas en el mismo
+        var map = L.map('map').setView(
+            [{{ place.latitude }}, {{ place.longitude }}], 18
+        );
+
+        L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+            {attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'}
+        ).addTo(map);
+
+        var bounds = new L.LatLngBounds();
+        var person = L.marker([latitude, longitude]).addTo(map);
+        bounds.extend(person.getLatLng());
+        var origin = L.marker([{{ place.latitude }}, {{ place.longitude }}]).addTo(map);
+
+        bounds.extend(origin.getLatLng());
+        map.fitBounds(bounds);
     }
-};
+    function noLocation() {
+         alert("La geolocalización no está disponible.");
+         console.log("La geolocalización no está disponible.");
+     }
+
 </script>
 {% endblock js_head %}
 
@@ -60,7 +73,7 @@ function getLocation() {
 
 {% block content %}
     <div class="text-center">
-        <button onclick="getLocation()" class="btn btn-lg btn-primary">Comprobar</button>
+        <button class="btn btn-lg btn-primary" id="geobutton">Comprobar</button>
     </div>
     <hr>
     <div id="messages-dist" class="text-center"></div>
